@@ -20,20 +20,27 @@
         <div class="weather-app">
           <form id="search-form" class="mb-3">
             <div class="row">
-              <div class="col-9">
+              <div class="d-flex">
+                <div class="col-9">
                 <input
                   type="search"
                   placeholder="Enter a city..."
                   class="form-control"
                   id="city-input"
-                />
-              </div>
-              <div class="col-3">
-                <input type="submit" value="Search" class="btn btn-primary" />
+                /></div>
+                <div class="col-3">
+              <span class="submit-btn">            
+                <input type="submit" value="Search" class="btn btn-primary" /></span></div>
               </div>
             </div>
           </form>
-
+          <div class="common-cities">
+            <span id="London"><a href="#" class="london"> London </a></span>|<span id="New-York"
+              ><a href="#"> New York </a></New></span
+            >|<span id="Hong-Kong"><a href="#"> Hong Kong </a></span>|<span id="Tel-aviv"
+              ><a href="#"> Tel Aviv </a></span
+            >
+          </div>
           <div class="overview">
             <h1 id="city">Hong Kong</h1>
 
@@ -49,10 +56,7 @@
 
                 <div class="float-left">
                   <strong id="temperature">12</strong>
-                  <span class="units"
-                    ><a href="#" id="celsius-link" class="active">°C</a> |
-                    <a href="#" id="fahrenheit-link">°F</a></span
-                  >
+                  <span class="units">°C</span>
                 </div>
               </div>
             </div>
@@ -63,8 +67,16 @@
               </ul>
             </div>
           </div>
+          <div class="weather-forecast" id="forecast"></div>
         </div>
-        <small> Open-source code, by Fung-ping Wong </small>
+        <div class="footer">
+        <small>
+          <a
+            href="https://github.com/jamiew555/Vanilla-Weather-App"
+            target="_blank"
+            >Open-source code</a
+          >, by Fung-ping Wong
+        </small></div>
       </div>
     </div>
   </body>

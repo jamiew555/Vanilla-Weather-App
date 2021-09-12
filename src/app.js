@@ -21,6 +21,52 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 7 && index > 0) {
+      forecastHTML =
+        forecastHTML +
+        `
+    <div class="col-2">
+      <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
+     
+      <img src="https://openweathermap.org/img/wn/${
+        forecastDay.weather[0].icon
+      }@2x.png" width="60px" />
+      <div class="weather-forecast-temperature">
+        <span class="weather forecast-temperature-max">${Math.round(
+          forecastDay.temp.max
+        )}°</span>
+        <span class="weather forecast-temperature-min">${Math.round(
+          forecastDay.temp.min
+        )}°</span>
+      </div>
+  </div>`;
+    }
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  let apiKey = "03eae50e408a5980bf3d11d9419f315f";
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&&appid=${apiKey}&units=metric`;
+  axios.get(apiURL).then(displayForecast);
+}
+
 function displayTemperature(response) {
   celsiusTemperature = response.data.main.temp;
   let temperatureElement = document.querySelector("#temperature");
@@ -41,6 +87,8 @@ function displayTemperature(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", `response.data.weather[0].description`);
+
+  getForecast(response.data.coord);
 }
 
 function search(city) {
@@ -56,32 +104,39 @@ function handleSubmit(event) {
   search(cityInputElement.value);
 }
 
+search("New York");
+
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
-search("New York");
-
-function displayfahrenheitTemperature(event) {
+function DisplayLondon(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
+  search("london");
 }
 
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayfahrenheitTemperature);
+let LondonTemp = document.querySelector("#London");
+LondonTemp.addEventListener("click", DisplayLondon);
 
-function displaycelsiusTemperature(event) {
+function DisplayNY(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
+  search("new york");
 }
 
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displaycelsiusTemperature);
+let NYTemp = document.querySelector("#New-York");
+NYTemp.addEventListener("click", DisplayNY);
 
-let celsiusTemperature = null;
+function DisplayHK(event) {
+  event.preventDefault();
+  search("hong kong");
+}
+
+let HKTemp = document.querySelector("#Hong-Kong");
+HKTemp.addEventListener("click", DisplayHK);
+
+function DisplayTA(event) {
+  event.preventDefault();
+  search("tel aviv");
+}
+
+let TATemp = document.querySelector("#Tel-aviv");
+TATemp.addEventListener("click", DisplayTA);
