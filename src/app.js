@@ -11,7 +11,7 @@ function formatDate(timestamp) {
   ];
   let hours = date.getHours();
   if (hours < 10) {
-    hours = `0{hours}`;
+    hours = `0${hours}`;
   }
   let minutes = date.getMinutes();
   if (minutes < 10) {
@@ -140,3 +140,15 @@ function DisplayTA(event) {
 
 let TATemp = document.querySelector("#Tel-aviv");
 TATemp.addEventListener("click", DisplayTA);
+
+let today_quotes = [
+  "Let everything happen to you,Beauty and terror. Just keep going. No feeling is final ― Rainer Maria Rilke",
+  "Forever is composed of nows. ― Emily Dickinson",
+  "Write it on your heart that every day is the best day in the year.― Ralph Waldo Emerson",
+  "Happiness, not in another place but this place...not for another hour, but this hour.― Walt Whitman",
+  "Be present in all things and thankful for all things.― Maya Angelou",
+  "Life is a preparation for the future; and the best preparation for the future is to live as if there were none.― Albert Einstein",
+];
+let RandomQ = document.querySelector("#quotes");
+RandomQ.innerHTML =
+  today_quotes[Math.floor(Math.random() * today_quotes.length)];
